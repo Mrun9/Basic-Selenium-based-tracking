@@ -58,8 +58,8 @@ for product, company in products_companies:
 # Write the product names and company names to a CSV file
 with open('amazon/amazon_dress.tsv', 'w', newline='', encoding='utf-8') as file:
     writer = csv.writer(file, delimiter='\t')
-    writer.writerow(["Product Name", "Company Name"])
-    writer.writerows(products_companies)
+    writer.writerow(["Product Name", "Company Name"])  # Write the header
+    writer.writerows(products_companies)  # Write the data
 
 # Clean up
 time.sleep(5)
