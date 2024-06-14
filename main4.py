@@ -6,6 +6,8 @@ from selenium.webdriver.support import expected_conditions as EC
 
 import time 
 
+import csv 
+
 serv = Service(
     executable_path="chromedriver.exe"
 )
@@ -37,6 +39,14 @@ for t, p in final:
     print(f"Product: {t}, Price: {p}")
 
 print(f"No of product prices found: {len(products)}")
+
+# Save the info in a csv file
+with open('products_grubhub.csv', 'w', newline='', encoding='utf-8') as file:
+    writer = csv.writer(file)
+    writer.writerow(['Product', 'Price'])
+    writer.writerow(final)
+
+print(f"Data transferred to csv file successfully")
 
 time.sleep(20)
 
