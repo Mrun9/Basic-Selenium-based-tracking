@@ -32,20 +32,6 @@ WebDriverWait(driver, 10).until(
     EC.presence_of_element_located((By.XPATH, "//span[@data-component-type='s-search-results']"))
 )
 
-# Scroll and load more results
-last_height = driver.execute_script("return document.body.scrollHeight")
-
-while True:
-    # Scroll down to the bottom
-    driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-    time.sleep(2)  # Wait for the page to load
-    
-    # Calculate new scroll height and compare with last scroll height
-    new_height = driver.execute_script("return document.body.scrollHeight")
-    if new_height == last_height:
-        break
-    last_height = new_height
-
 # Extract the parent elements that contain product name, company name, and price
 xpath_pattern = '//*[@data-component-type="s-search-result"]'
 product_containers = driver.find_elements(By.XPATH, xpath_pattern)

@@ -42,11 +42,19 @@ while True:
 
 # Extract product names
 product_elements = driver.find_elements(By.XPATH, "//span[contains(@class, 'a-size-base-plus a-color-base a-text-normal')]")
-product_names = [element.text for element in product_elements]
+product_names = [element.text.strip() for element in product_elements]
 
 # Extract company names
 company_elements = driver.find_elements(By.XPATH, "//span[contains(@class, 'a-size-base-plus a-color-base')]")
-company_names = [element.text for element in company_elements]
+company_names = [element.text.strip() for element in company_elements]
+
+company_elements = driver.find_elements(By.XPATH, "//span[contains(@class, 'a-size-base-plus a-color-base')]")
+company_names = [element.text.strip() for element in company_elements]
+
+# Ensure lists are of equal length by padding with empty strings
+max_length = max(len(product_names), len(company_names))
+product_names += [''] * (max_length - len(product_names))
+company_names += [''] * (max_length - len(company_names))
 
 # Combine product names and company names into a list of tuples
 products_companies = list(zip(product_names, company_names))
@@ -59,7 +67,8 @@ for product, company in products_companies:
 with open('amazon/amazon_dress.tsv', 'w', newline='', encoding='utf-8') as file:
     writer = csv.writer(file, delimiter='\t')
     writer.writerow(["Product Name", "Company Name"])  # Write the header
-    writer.writerows(products_companies)  # Write the data
+    for product, company in products_companies:
+        writer.writerow([product, company])  # Write each row
 
 # Clean up
 time.sleep(5)
