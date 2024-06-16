@@ -25,16 +25,26 @@ search_box = WebDriverWait(driver, 50).until(
 search_box.clear()
 search_box.send_keys("women summer dresses" + Keys.ENTER)
 
-# Wait for the "Next" button to be present and clickable
-next_button = WebDriverWait(driver, 10).until(
-    EC.element_to_be_clickable((By.CSS_SELECTOR, '.s-pagination-item.s-pagination-next.s-pagination-button.s-pagination-separator'))
-)
+# Function to print "xoxo"
+def print_xoxo():
+    print("xoxo")
 
-# Click the "Next" button
-next_button.click()
-
-# Wait for the new page to load
-time.sleep(5)
+# Loop to click the "Next" button until it no longer exists
+while True:
+    try:
+        # Wait for the "Next" button to be present and clickable
+        next_button = WebDriverWait(driver, 10).until(
+            EC.element_to_be_clickable((By.CSS_SELECTOR, '.s-pagination-item.s-pagination-next.s-pagination-button.s-pagination-separator'))
+        )
+        # Click the "Next" button
+        next_button.click()
+        # Print "xoxo"
+        print_xoxo()
+        # Wait for the new page to load
+        time.sleep(5)
+    except:
+        print("No more 'Next' button found or an error occurred.")
+        break
 
 # Close the WebDriver
 driver.quit()
